@@ -32,5 +32,8 @@ package object common {
     .json(buildJsonPath(fileName))
 
   def buildJsonPath(fileName: String): String =
-    s"src/main/resources/data/${fileName}/${fileName}.json"
+    buildDataPath(s"${fileName}/${fileName}.json")
+
+  def buildDataPath(resource: String): String =
+    s"src/main/resources/data/$resource"
 }

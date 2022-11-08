@@ -1,4 +1,4 @@
-package template
+package section7
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._

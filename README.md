@@ -13,17 +13,27 @@ Master Spark's Streaming Library with Scala.
 ## Sections
 
 1. [Scala Recap](src/main/scala/section1)
+2. [Structured Streaming](src/main/scala/section2)
+3. [Low-level DStreams](src/main/scala/section3)
+4. [Streaming Integrations](src/main/scala/section4)
+5. [Twitter Sentiment Analysis](src/main/scala/section5)
+6. [Advanced Streaming](src/main/scala/section6)
+7. [Final Project](src/main/scala/section7)
 
-## IntelliJ IDEA
+## Setup
+
+### IntelliJ IDEA
+
+Install IntelliJ IDEA with the Scala plugin.
 
 - https://www.jetbrains.com/idea/
 
-## Docker
+### Docker
+
+Install Docker:
 
 - https://docs.docker.com/desktop/install/ubuntu/
 - https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository
-
-## Environment Containers
 
 Start all required containers:
 
@@ -31,7 +41,7 @@ Start all required containers:
 $ docker compose up
 ```
 
-Get a shell in each container:
+Access each container:
 
 ```bash
 # Get a shell in any container
@@ -50,7 +60,7 @@ $ ./docker-clean.sh
 
 ## Netcat
 
-We will need netcat to test streaming data:
+We will use netcat (`nc`) to test streaming data:
 
 ```bash
 $ which nc
