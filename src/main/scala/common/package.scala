@@ -1,3 +1,4 @@
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.types._
 
 package object common {
@@ -19,4 +20,17 @@ package object common {
     StructField("value", DoubleType)
   ))
 
+  def inspect(dataFrame: DataFrame): Unit = {
+    dataFrame.printSchema()
+    dataFrame.show()
+    println(s"Size: ${dataFrame.count()}")
+  }
+
+  def readJson(spark: SparkSession, fileName: String): DataFrame = spark
+    .read
+    .option("inferSchema", "true")
+    .json(buildJsonPath(fileName))
+
+  def buildJsonPath(fileName: String): String =
+    s"src/main/resources/data/${fileName}/${fileName}.json"
 }

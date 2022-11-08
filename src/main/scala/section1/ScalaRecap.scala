@@ -1,5 +1,9 @@
 package section1
 
+import scala.concurrent.Future
+import scala.util.{Failure, Success}
+import scala.concurrent.ExecutionContext.Implicits.global
+
 object ScalaRecap extends App {
   /**
     * Constant and Variables
