@@ -12,7 +12,7 @@ object Template {
 
   val spark = SparkSession.builder()
     .appName("Lesson  - ")
-    .master("local[2]")
+    .master("local[4]")
     .getOrCreate()
 
   import spark.implicits._
