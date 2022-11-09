@@ -10,7 +10,7 @@ object DStreamWindowTransformationsExercise {
     */
   val spark = SparkSession
     .builder()
-    .appName("Lesson 3.3 - DStream Window Transformations")
+    .appName("Lesson 3.3 - DStream Window Transformations Exercise")
     .master("local[*]")
     .getOrCreate()
 
@@ -28,7 +28,7 @@ object DStreamWindowTransformationsExercise {
     * - Do one version with each Window function:
     */
   val ssc = new StreamingContext(sc, Seconds(10))
-  ssc.checkpoint("checkpoint")
+  ssc.checkpoint("checkpoints")
 
   val longWordValue = 2
 
