@@ -20,6 +20,20 @@ package object common {
     StructField("value", DoubleType)
   ))
 
+  val defaultSocketConfig: Map[String, String] = getSocketConfig(12345)
+
+  def getSocketConfig(port: Int): Map[String, String] = Map(
+    "host" -> "localhost",
+    "port" -> port.toString,
+  )
+
+  def getDataFrameStream(spark: SparkSession, port: Int): DataFrame = spark
+    .readStream
+    .format("socket")
+    .options(getSocketConfig(port))
+    .load()
+
+
   def inspect(dataFrame: DataFrame): Unit = {
     dataFrame.printSchema()
     dataFrame.show()

@@ -2,7 +2,7 @@ package section2
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import common.{buildDataPath, buildJsonPath, inspect, readJson, stocksSchema}
+import common.{buildDataPath, buildJsonPath, inspect, readJson, defaultSocketConfig, stocksSchema}
 import org.apache.spark.sql.streaming.Trigger
 
 import scala.concurrent.duration.DurationInt
@@ -29,8 +29,7 @@ object StreamingDataFrames {
     val lines = spark
       .readStream
       .format("socket")
-      .option("host", "localhost")
-      .option("port", 12345)
+      .options(defaultSocketConfig)
       .load()
 
     println(s"Is streaming? ${lines.isStreaming}")
@@ -84,8 +83,7 @@ object StreamingDataFrames {
     val lines = spark
       .readStream
       .format("socket")
-      .option("host", "localhost")
-      .option("port", 12345)
+      .options(defaultSocketConfig)
       .load()
 
     lines

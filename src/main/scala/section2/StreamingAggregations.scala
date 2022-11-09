@@ -1,5 +1,6 @@
 package section2
 
+import common.defaultSocketConfig
 import org.apache.spark.sql.{Column, DataFrame, SparkSession}
 import org.apache.spark.sql.functions._
 
@@ -22,8 +23,7 @@ object StreamingAggregations {
     val lines: DataFrame = spark
       .readStream
       .format("socket")
-      .option("host", "localhost")
-      .option("port", 12345)
+      .options(defaultSocketConfig)
       .load()
 
     val lineCount = lines
@@ -33,7 +33,7 @@ object StreamingAggregations {
       * Append and Update Output Modes are only supported
       * for Aggregations with "watermarks" (more on that later).
       *
-      * Aggregations with distinct are also no supported:
+      * Aggregations with sorting or distinct are not supported at all:
       * would need to keep the entire unbounded state of the stream in memory.
       */
     lineCount
@@ -49,8 +49,7 @@ object StreamingAggregations {
     val lines = spark
       .readStream
       .format("socket")
-      .option("host", "localhost")
-      .option("port", 12345)
+      .options(defaultSocketConfig)
       .load()
 
     val numbers = lines
@@ -74,8 +73,7 @@ object StreamingAggregations {
     val lines = spark
       .readStream
       .format("socket")
-      .option("host", "localhost")
-      .option("port", 12345)
+      .options(defaultSocketConfig)
       .load()
 
     val numbers = lines
@@ -99,8 +97,7 @@ object StreamingAggregations {
     val lines = spark
       .readStream
       .format("socket")
-      .option("host", "localhost")
-      .option("port", 12345)
+      .options(defaultSocketConfig)
       .load()
 
 
