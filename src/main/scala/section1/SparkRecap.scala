@@ -13,7 +13,7 @@ object SparkRecap {
   val spark = SparkSession.builder()
     .appName("Lesson 1.2 - Spark Recap")
     // Run locally on 2 threads
-    .master("local[2]")
+    .master("local[*]")
     .getOrCreate()
 
   import spark.implicits._

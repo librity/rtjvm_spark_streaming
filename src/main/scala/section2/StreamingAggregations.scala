@@ -11,7 +11,7 @@ object StreamingAggregations {
 
   val spark = SparkSession.builder()
     .appName("Lesson 2.2 - Streaming Aggregations")
-    .master("local[4]")
+    .master("local[*]")
     .getOrCreate()
 
   import spark.implicits._

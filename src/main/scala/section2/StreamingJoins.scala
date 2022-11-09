@@ -13,7 +13,7 @@ object StreamingJoins {
 
   val spark = SparkSession.builder()
     .appName("Lesson 2.3 - Streaming Joins")
-    .master("local[4]")
+    .master("local[*]")
     .getOrCreate()
 
   import spark.implicits._

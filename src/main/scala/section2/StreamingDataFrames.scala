@@ -14,7 +14,7 @@ object StreamingDataFrames {
 
   val spark = SparkSession.builder()
     .appName("Lesson 2.1 - Streaming Data Frames")
-    .master("local[4]")
+    .master("local[*]")
     .getOrCreate()
 
   import spark.implicits._

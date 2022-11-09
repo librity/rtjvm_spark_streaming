@@ -113,6 +113,6 @@ object StreamingDataSetsExercise {
 
     // streamHotRodsCount
     // streamAverageHP
-     streamByOrigin
+    // streamByOrigin
   }
 }
