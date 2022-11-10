@@ -1,12 +1,18 @@
 # Section 5 - Notes
 
-## Twitter API
+## Twitter For Developers
 
 - https://developer.twitter.com/en
 - https://github.com/twitterdev
 - https://medium.com/javarevisited/how-to-access-twitter-v2-api-with-java-6d707003e43e
 - https://developer.twitter.com/en/docs/authentication/guides/v2-authentication-mapping
 - https://developer.twitter.com/en/docs/twitter-api/tweets/lookup/introduction
+- https://www.toptal.com/apache/apache-spark-streaming-twitter
+
+## Twitter API V2
+
+- https://github.com/twitterdev/Twitter-API-v2-sample-code/tree/main/Filtered-Stream
+- https://github.com/twitterdev/Twitter-API-v2-sample-code/tree/main/Sampled-Stream
 
 ## Twitter4J Wrapper
 
