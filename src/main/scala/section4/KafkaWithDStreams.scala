@@ -105,8 +105,12 @@ object KafkaWithDStreams {
 
         /**
           * Producer can insert records into the Kafka topics
+          *
           * Available on this executor only:
-          * executors can't (and shouldn't) share producers
+          * executors can't (and shouldn't) share producers.
+          * To share this producers between executors would require
+          * this object to be serialized (producers can't be serialized)
+          * and sent to every other node running an executor, which is absurd.
           */
         val producer = new KafkaProducer[String, String](kafkaHashMap)
 
