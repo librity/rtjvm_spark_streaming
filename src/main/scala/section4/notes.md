@@ -1,5 +1,11 @@
 # Section 4 - Notes
 
+## Spark
+
+- https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html
+- https://spark.apache.org/docs/latest/job-scheduling.html
+- https://www.educba.com/spark-executor/
+
 ## Kafka
 
 - https://github.com/apache/kafka
@@ -36,8 +42,39 @@ $ bin/kafka-console-consumer.sh \
   --topic rockthejvm
 ```
 
-## Spark
+## Cassandra
 
-- https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html
-- https://spark.apache.org/docs/latest/job-scheduling.html
-- https://www.educba.com/spark-executor/
+- Free and open-source, distributed, wide-column store, NoSQL database management system.
+- https://wikiless.org/wiki/Apache_Cassandra?lang=en
+- https://gitbox.apache.org/repos/asf?p=cassandra.git
+- https://cassandra.apache.org/_/index.html
+
+```bash
+# Start containers
+$ docker compose up
+
+# In another shell...
+$ ./cql.sh
+```
+
+In the Cassandra shell:
+
+```cassandraql
+-- Create keyspace
+CREATE KEYSPACE public
+            WITH replication = { 'class': 'SimpleStrategy', 'replication_factor': 1 };
+
+-- Create table
+CREATE TABLE public.cars
+(
+    "Name"       TEXT PRIMARY KEY,
+    "Horsepower" INT,
+);
+
+-- Run queries as you would
+SELECT *
+FROM public.cars;
+
+-- Delete all rows
+TRUNCATE public.cars;
+```
