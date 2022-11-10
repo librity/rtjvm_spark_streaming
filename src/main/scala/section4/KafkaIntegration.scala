@@ -24,6 +24,8 @@ object KafkaIntegration {
     /**
       * Subscribe to multiple topics with commas:
       * .option("subscribe", "football, golf, rugby")
+      *
+      * "kafka.bootstrap.servers" and "subscribe" are required
       */
     val kafkaDF = spark
       .readStream
@@ -61,6 +63,8 @@ object KafkaIntegration {
       )
 
     /**
+      * "checkpointLocation", "kafka.bootstrap.servers" and "topic" are required
+      *
       * Writing stream to Kafka requires checkpoints:
       * - This is how Spark keeps track of which data it has already sent
       * - Delete the checkpoints directory to before every test

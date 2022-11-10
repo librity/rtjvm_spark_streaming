@@ -4,7 +4,6 @@
 
 - https://github.com/apache/kafka
 - https://kafka.apache.org/quickstart
-- https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html
 
 ```bash
 # Reset checkpoints
@@ -36,3 +35,9 @@ $ bin/kafka-console-consumer.sh \
   --bootstrap-server localhost:9092 \
   --topic rockthejvm
 ```
+
+## Spark
+
+- https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html
+- https://spark.apache.org/docs/latest/job-scheduling.html
+- https://www.educba.com/spark-executor/

@@ -10,7 +10,7 @@ object KafkaIntegrationExercise {
     */
 
   val spark = SparkSession.builder()
-    .appName("Lesson 4.1 - Kafka Integration")
+    .appName("Lesson 4.1 - Kafka Integration Exercise")
     .master("local[*]")
     .getOrCreate()
 
