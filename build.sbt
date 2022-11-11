@@ -14,6 +14,7 @@ val kafkaVersion = "2.4.0"
 val log4jVersion = "2.4.1"
 val nlpLibVersion = "3.5.1"
 val httpClientVersion = "4.5.13"
+val twitterSDKVersion = "2.0.3"
 
 resolvers ++= Seq(
   "bintray-spark-packages" at "https://dl.bintray.com/spark-packages/maven",
@@ -65,4 +66,7 @@ libraryDependencies ++= Seq(
 
   // Apache HTTP Client
   "org.apache.httpcomponents" % "httpclient" % httpClientVersion,
+
+  // Twitter API v2 SDK
+  "com.twitter" % "twitter-api-java-sdk" % twitterSDKVersion,
 )

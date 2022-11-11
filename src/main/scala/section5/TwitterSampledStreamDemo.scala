@@ -26,7 +26,6 @@ object TwitterSampledStreamDemo {
   def main(args: Array[String]): Unit = {
     val config = ConfigFactory.load("twitterAPI");
     val bearerToken = config.getString("oauth.bearerToken")
-    println(bearerToken)
 
     if (bearerToken == null) {
       println("There was a problem getting your bearer token. Please make sure you set the TWITTER_BEARER_TOKEN environment variable")

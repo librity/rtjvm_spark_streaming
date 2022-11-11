@@ -1,0 +1,9 @@
+oauth {
+    consumerKey = "CODES HERE"
+    consumerSecret = "CODES HERE"
+
+    accessToken = "CODES HERE"
+    accessTokenSecret = "CODES HERE"
+
+    bearerToken = "CODES HERE"
+}

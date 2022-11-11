@@ -204,6 +204,9 @@ spark-warehouse/
 
 # End of https://www.gitignore.io/api/sbt,scala,spark,intellij
 
-# Test directory
+# My configs
 src/main/resources/data/dump/*
 checkpoints
+
+src/main/resources/twitterAPI.conf
+.env
