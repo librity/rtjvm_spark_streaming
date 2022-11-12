@@ -68,5 +68,5 @@ libraryDependencies ++= Seq(
   "org.apache.httpcomponents" % "httpclient" % httpClientVersion,
 
   // Twitter API v2 SDK
-  "com.twitter" % "twitter-api-java-sdk" % twitterSDKVersion,
+//  "com.twitter" %% "twitter-api-java-sdk" % twitterSDKVersion,
 )

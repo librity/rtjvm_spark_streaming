@@ -11,7 +11,7 @@ object TweetSentimentsReader {
     * Boilerplate
     */
   val spark = SparkSession.builder()
-    .appName("Lesson 5.5 - Tweet Sentiments Reader ")
+    .appName("Lesson 5.5 - Tweet Sentiments Reader")
     .master("local[*]")
     .getOrCreate()
 
