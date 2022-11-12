@@ -4,6 +4,7 @@ import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.receiver.Receiver
 import twitter4j.{StallWarning, Status, StatusDeletionNotice, StatusListener, TwitterStream, TwitterStreamFactory}
 
+import java.io.{OutputStream, PrintStream}
 import java.net.Socket
 import scala.concurrent.{Future, Promise}
 import scala.io.Source
@@ -37,6 +38,8 @@ class TwitterAPIv1Receiver
     * "src/main/resources": twitter4j.properties directory
     */
   override def onStart(): Unit = {
+    redirectSystemErrorToNull()
+
     val twitterStream =
       new TwitterStreamFactory("src/main/resources")
         .getInstance()
@@ -50,4 +53,18 @@ class TwitterAPIv1Receiver
     twitterStream.cleanUp()
     twitterStream.shutdown()
   }
+
+  private
+
+  def redirectSystemErrorToNull() = System.setErr(
+    new PrintStream(
+      new OutputStream {
+        override def write(bytes: Array[Byte], i: Int, i1: Int): Unit = {}
+
+        override def write(bytes: Array[Byte]): Unit = {}
+
+        override def write(i: Int): Unit = {}
+      }
+    )
+  )
 }

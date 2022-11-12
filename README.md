@@ -20,6 +20,10 @@ Master Spark's Streaming Library with Scala.
 6. [Advanced Streaming](src/main/scala/section6)
 7. [Final Project](src/main/scala/section7)
 
+## To Do
+
+- [ ] Redo section 2 with Twitter's v2 API
+
 ## Setup
 
 ### IntelliJ IDEA
