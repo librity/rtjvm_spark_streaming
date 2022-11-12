@@ -13,8 +13,7 @@ val twitter4jVersion = "4.0.7"
 val kafkaVersion = "2.4.0"
 val log4jVersion = "2.4.1"
 val nlpLibVersion = "3.5.1"
-val httpClientVersion = "4.5.13"
-val twitterSDKVersion = "2.0.3"
+
 
 resolvers ++= Seq(
   "bintray-spark-packages" at "https://dl.bintray.com/spark-packages/maven",
@@ -65,8 +64,13 @@ libraryDependencies ++= Seq(
   "org.apache.kafka" % "kafka-streams" % kafkaVersion,
 
   // Apache HTTP Client
-  "org.apache.httpcomponents" % "httpclient" % httpClientVersion,
+  "org.apache.httpcomponents" % "httpclient" % "4.5.13",
+
+  // JSON Parser
+  "io.spray" %% "spray-json" % "1.3.6",
+  //    "com.typesafe.play" %% "play-json" % "2.9.3",
+  //  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1",
 
   // Twitter API v2 SDK
-//  "com.twitter" %% "twitter-api-java-sdk" % twitterSDKVersion,
+  //  "com.twitter" %% "twitter-api-java-sdk" % "2.0.3",
 )

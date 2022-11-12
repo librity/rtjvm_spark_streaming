@@ -1,32 +1,29 @@
 package section5
 
+import java.io.{InputStream, BufferedReader, IOException, InputStreamReader}
+import java.net.URISyntaxException
+
+import scala.concurrent.{Future, Promise}
+import scala.io.Source
+
+import org.apache.http.client.config.{CookieSpecs, RequestConfig}
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.utils.URIBuilder
+import org.apache.http.impl.client.HttpClients
+
+import com.typesafe.config.ConfigFactory
+
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions._
-import common.{buildJsonPath, inspect, readJson}
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.receiver.Receiver
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
-import java.net.Socket
-import java.io.InputStream
-import scala.concurrent.{Future, Promise}
-import scala.io.Source
+import spray.json._
+import DefaultJsonProtocol._
 
-import org.apache.http.{HttpEntity, HttpResponse}
-import org.apache.http.client.HttpClient
-import org.apache.http.client.config.{CookieSpecs, RequestConfig}
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.client.utils.URIBuilder
-import org.apache.http.impl.client.HttpClients
-import java.io.{BufferedReader, IOException, InputStreamReader}
-import java.net.URISyntaxException
-
-import com.typesafe.config.ConfigFactory
-
-
-class TwitterSampledStreamReceiver
-  extends Receiver[String](StorageLevel.MEMORY_ONLY) {
+class TwitterSampledStreamJsonReceiver
+  extends Receiver[JsValue](StorageLevel.MEMORY_ONLY) {
 
   import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -35,15 +32,15 @@ class TwitterSampledStreamReceiver
 
 
   override def onStart(): Unit = {
-    val beareToken = getBearerTokenOrDie()
-    val stream = connectStream(beareToken)
+    val bearerToken = getBearerTokenOrDie
+    val stream = connectStreamOrDie(bearerToken)
 
 
     Future {
       Source
         .fromInputStream(stream)
         .getLines()
-        .foreach(line => store(line))
+        .foreach(line => store(line.parseJson))
     }
 
     socketPromise.success(stream)
@@ -54,7 +51,7 @@ class TwitterSampledStreamReceiver
 
   private
 
-  def getBearerTokenOrDie() = {
+  def getBearerTokenOrDie: String = {
     val config = ConfigFactory.load("twitterAPI")
     val bearerToken = config.getString("oauth.bearerToken")
 
@@ -66,7 +63,7 @@ class TwitterSampledStreamReceiver
     bearerToken
   }
 
-  def connectStream(bearerToken: String) = {
+  def connectStreamOrDie(bearerToken: String): InputStream = {
     val httpClient = HttpClients
       .custom
       .setDefaultRequestConfig(
@@ -76,7 +73,7 @@ class TwitterSampledStreamReceiver
           .build
       ).build
 
-    val uri = "https://api.twitter.com/2/tweets/sample/stream"
+    val uri = "https://api.twitter.com/2/tweets/sample/stream?tweet.fields=created_at&expansions=author_id&user.fields=created_at"
     val uriBuilder = new URIBuilder(uri)
     val httpGet = new HttpGet(uriBuilder.build)
     httpGet.setHeader("Authorization", String.format("Bearer %s", bearerToken))
@@ -95,9 +92,9 @@ class TwitterSampledStreamReceiver
 }
 
 
-object TweetsReaderV2 {
+object TweetsJsonReaderV2 {
   val spark = SparkSession.builder()
-    .appName("Lesson 5.1 - Custom Receiver")
+    .appName("Lesson 5.1 - Twitter API v2 JSON Stream Reader")
     .master("local[*]")
     .getOrCreate()
 
@@ -110,8 +107,22 @@ object TweetsReaderV2 {
 
 
   def echoTwitterReceiver() = {
-    val dataSteam: DStream[String] = ssc
-      .receiverStream(new TwitterSampledStreamReceiver())
+    val dataSteam = ssc
+      .receiverStream(new TwitterSampledStreamJsonReceiver())
+      .map { tweetJson =>
+        tweetJson.asJsObject.getFields("data") match {
+
+
+          case Seq(obj: JsObject) =>
+            obj.getFields("text") match {
+              case Seq(JsString(text)) => text
+              case unrecognized => deserializationError(s"JSON serialization error: $unrecognized")
+            }
+          case unrecognized => deserializationError(s"JSON serialization error: $unrecognized")
+
+
+        }
+      }
 
     dataSteam.print()
 
@@ -120,6 +131,8 @@ object TweetsReaderV2 {
   }
 
 
+  @throws[IOException]
+  @throws[URISyntaxException]
   def main(args: Array[String]): Unit = {
     echoTwitterReceiver()
   }
