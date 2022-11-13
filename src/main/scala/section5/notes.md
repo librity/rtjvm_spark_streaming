@@ -80,6 +80,7 @@ Filtered Stream Tweets:
 ### Parse JSON
 
 - https://stackoverflow.com/questions/30884841/converting-json-string-to-a-json-object-in-scala
+- https://stackoverflow.com/questions/33307386/how-to-create-a-json-object-in-scala
 - https://github.com/spray/spray-json
 - https://www.playframework.com/documentation/2.8.x/ScalaJson
 - https://index.scala-lang.org/playframework/play-json
