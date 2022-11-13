@@ -1,8 +1,6 @@
 package section5
 
-sealed trait SentimentType {
-
-}
+sealed trait SentimentType {}
 
 /**
   * - NLP Library: Scores are between 0 and 5

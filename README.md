@@ -8,7 +8,7 @@ Master Spark's Streaming Library with Scala.
 
 ## Certificate
 
-[//]: # (![Certificate of Completion]&#40;.github/certificate.png&#41;)
+![Certificate of Completion](.github/certificate.png)
 
 ## Sections
 
@@ -19,10 +19,18 @@ Master Spark's Streaming Library with Scala.
 5. [Twitter Sentiment Analysis](src/main/scala/section5)
 6. [Advanced Streaming](src/main/scala/section6)
 7. [Final Project](src/main/scala/section7)
+7. [Twitter API v2 Sentiment Analysis](src/main/scala/section8)
 
 ## To Do
 
 - [ ] Redo section 2 with Twitter's v2 API
+    - [x] Read Sampled Stream endpoint with Apache's HTTP Client
+    - [x] Read Sampled Stream endpoint in a Spark Stream
+    - [ ] Read Filtered Stream endpoint with Apache's HTTP Client (English language tweets)
+    - [ ] Read Filtered Stream endpoint in a Spark Stream
+    - [ ] Compute average length of tweets
+    - [ ] Compute most popular hashtags
+    - [ ] Compute sentiment analysis with Stanford's NLP library
 
 ## Setup
 

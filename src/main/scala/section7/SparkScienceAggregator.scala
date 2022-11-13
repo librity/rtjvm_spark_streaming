@@ -78,6 +78,7 @@ object SparkScienceAggregator {
     * @param state     The previous data, a List of UserResonse in this case.
     * @return The new Average Response of that user
     *
+    *
     *         Example:
     *         updateUserIntervalTime(3)("sessionId", [100, 200, 300, 400, 500, 600], Empty) => Iterator(200, 300, 400, 500)
     *

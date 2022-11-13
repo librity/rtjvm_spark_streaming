@@ -10,7 +10,7 @@ import scala.concurrent.{Future, Promise}
 import scala.io.Source
 
 
-class TwitterAPIv1Receiver
+class TwitterReceiver
   extends Receiver[Status](StorageLevel.MEMORY_ONLY) {
 
   import scala.concurrent.ExecutionContext.Implicits.global

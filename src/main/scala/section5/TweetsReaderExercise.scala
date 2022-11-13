@@ -27,7 +27,7 @@ object TweetsReaderExercise {
     *
     */
   def getTwitterStream(): DStream[Status] = ssc
-    .receiverStream(new TwitterAPIv1Receiver)
+    .receiverStream(new TwitterReceiver)
 
 
   /**

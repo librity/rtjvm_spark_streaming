@@ -1,28 +1,22 @@
-package section5
+package section8
 
-import java.io.{InputStream, BufferedReader, IOException, InputStreamReader}
-import java.net.URISyntaxException
-
-import scala.concurrent.{Future, Promise}
-import scala.io.Source
-
+import com.typesafe.config.ConfigFactory
 import org.apache.http.client.config.{CookieSpecs, RequestConfig}
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.client.utils.URIBuilder
 import org.apache.http.impl.client.HttpClients
-
-import com.typesafe.config.ConfigFactory
-
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.storage.StorageLevel
-import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.receiver.Receiver
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-
 import spray.json._
-import DefaultJsonProtocol._
 
-class TwitterSampledStreamJsonReceiver
+import java.io.{IOException, InputStream}
+import java.net.URISyntaxException
+import scala.concurrent.{Future, Promise}
+import scala.io.Source
+
+class TwitterSampledJsonReceiver
   extends Receiver[JsValue](StorageLevel.MEMORY_ONLY) {
 
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -92,13 +86,11 @@ class TwitterSampledStreamJsonReceiver
 }
 
 
-object TweetsJsonReaderV2 {
+object TweetsJsonReader {
   val spark = SparkSession.builder()
     .appName("Lesson 5.1 - Twitter API v2 JSON Stream Reader")
     .master("local[*]")
     .getOrCreate()
-
-  import spark.implicits._
 
   val sc = spark.sparkContext
   sc.setLogLevel("WARN")
@@ -108,7 +100,7 @@ object TweetsJsonReaderV2 {
 
   def echoTwitterReceiver() = {
     val dataSteam = ssc
-      .receiverStream(new TwitterSampledStreamJsonReceiver())
+      .receiverStream(new TwitterSampledJsonReceiver())
       .map { tweetJson =>
         tweetJson.asJsObject.getFields("data") match {
 

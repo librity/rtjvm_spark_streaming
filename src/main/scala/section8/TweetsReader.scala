@@ -1,31 +1,22 @@
-package section5
+package section8
 
+import com.typesafe.config.ConfigFactory
+import org.apache.http.client.config.{CookieSpecs, RequestConfig}
+import org.apache.http.client.methods.HttpGet
+import org.apache.http.client.utils.URIBuilder
+import org.apache.http.impl.client.HttpClients
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions._
-import common.{buildJsonPath, inspect, readJson}
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.receiver.Receiver
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
-import java.net.Socket
 import java.io.InputStream
 import scala.concurrent.{Future, Promise}
 import scala.io.Source
 
-import org.apache.http.{HttpEntity, HttpResponse}
-import org.apache.http.client.HttpClient
-import org.apache.http.client.config.{CookieSpecs, RequestConfig}
-import org.apache.http.client.methods.HttpGet
-import org.apache.http.client.utils.URIBuilder
-import org.apache.http.impl.client.HttpClients
-import java.io.{BufferedReader, IOException, InputStreamReader}
-import java.net.URISyntaxException
 
-import com.typesafe.config.ConfigFactory
-
-
-class TwitterSampledStreamReceiver
+class TwitterSampledReceiver
   extends Receiver[String](StorageLevel.MEMORY_ONLY) {
 
   import scala.concurrent.ExecutionContext.Implicits.global
@@ -95,13 +86,11 @@ class TwitterSampledStreamReceiver
 }
 
 
-object TweetsReaderV2 {
+object TweetsReader {
   val spark = SparkSession.builder()
     .appName("Lesson 5.1 - Custom Receiver")
     .master("local[*]")
     .getOrCreate()
-
-  import spark.implicits._
 
   val sc = spark.sparkContext
   sc.setLogLevel("WARN")
@@ -111,7 +100,7 @@ object TweetsReaderV2 {
 
   def echoTwitterReceiver() = {
     val dataSteam: DStream[String] = ssc
-      .receiverStream(new TwitterSampledStreamReceiver())
+      .receiverStream(new TwitterSampledReceiver())
 
     dataSteam.print()
 

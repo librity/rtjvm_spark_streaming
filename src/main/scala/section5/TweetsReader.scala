@@ -28,7 +28,7 @@ object TweetsReader {
 
   def readTweets() = {
     val twitterStream: DStream[Status] = ssc
-      .receiverStream(new TwitterAPIv1Receiver)
+      .receiverStream(new TwitterReceiver)
 
     val tweets: DStream[String] = twitterStream
       .map { status =>
