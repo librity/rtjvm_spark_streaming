@@ -9,7 +9,6 @@ object Template {
   /**
     * Boilerplate
     */
-
   val spark = SparkSession.builder()
     .appName("Lesson  - ")
     .master("local[*]")

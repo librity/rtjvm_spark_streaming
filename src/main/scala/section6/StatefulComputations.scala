@@ -67,9 +67,12 @@ object StatefulComputations {
       * - Only recalculates Aggregation for new items of a single group (better performance)
       * - A lot more control over the computation than with the SQL API
       * - Append output mode not supported
+      *
       * - GroupStateTimeout: Like a watermark, how late to consider incoming data
       * - .NoTimeout(): Take into account all data regardless of event time
       * - The data isn't time independent in this case, and we don't filter by event time
+      *
+      * - Use .flatMapWithState() for groups that return multiple outputs
       */
     val averageByPostType = socialStream
       .groupByKey(_.postType)
