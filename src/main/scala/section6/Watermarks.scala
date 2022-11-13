@@ -27,6 +27,8 @@ object Watermarks {
   /**
     * 2 Second Watermark
     *
+    * - Watermarks allow us to Aggregate and Join Streams in append mode
+    * - Spark knows when to discard old records from state management
     * - For each batch takes the latest event and ignores events earlier than 2 seconds
     * - A window will only be considered until the watermark surpasses the window's end
     * - An element/row/record will be considered if after the watermark
