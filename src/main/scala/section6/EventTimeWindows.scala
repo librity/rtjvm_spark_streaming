@@ -50,6 +50,34 @@ object EventTimeWindows {
         window($"time", "1 day", "1 hour") as "time"
       )
       .agg(sum("quantity") as "total_quantity")
+      .select(
+        $"time" getField "start" as "start",
+        $"time" getField "end" as "end",
+        $"total_quantity",
+      )
+
+    windowByDay
+      .writeStream
+      .format("console")
+      .outputMode("complete")
+      .start()
+      .awaitTermination()
+  }
+
+
+  def aggregatePurchasesByTumblingWindow() = {
+    val purchasesDF = readPurchasesFromSocket()
+
+    val windowByDay = purchasesDF
+      .groupBy(
+        window($"time", "1 day") as "time"
+      )
+      .agg(sum("quantity") as "total_quantity")
+      .select(
+        $"time" getField "start" as "start",
+        $"time" getField "end" as "end",
+        $"total_quantity",
+      )
 
     windowByDay
       .writeStream
@@ -61,5 +89,6 @@ object EventTimeWindows {
 
   def main(args: Array[String]): Unit = {
     aggregatePurchasesBySlidingWindow()
+    //    aggregatePurchasesByTumblingWindow()
   }
 }
