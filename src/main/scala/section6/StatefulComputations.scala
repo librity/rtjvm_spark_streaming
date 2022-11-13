@@ -72,7 +72,7 @@ object StatefulComputations {
       * - .NoTimeout(): Take into account all data regardless of event time
       * - The data isn't time independent in this case, and we don't filter by event time
       *
-      * - Use .flatMapWithState() for groups that return multiple outputs
+      * - Use .flatMapGroupsWithState() for groups that return multiple outputs
       */
     val averageByPostType = socialStream
       .groupByKey(_.postType)
